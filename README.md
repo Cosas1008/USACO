@@ -9,3 +9,4 @@ ex: fin >> name; // the fin is eof at this time
 
 2. Friday the Thirteenth
 
+Logic and mathmatic
