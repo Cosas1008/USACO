@@ -1,12 +1,6 @@
-# USACO
-Practice from USACO training set
+Y.W.Chen right reserved
 
-1. Gift1 
+practice USACO
 
-unsolved problem: what if the ifstream read the eof and try to assign the value?
+solution mainly solved in C++
 
-ex: fin >> name; // the fin is eof at this time
-
-2. Friday the Thirteenth
-
-Logic and mathmatic
