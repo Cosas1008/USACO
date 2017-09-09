@@ -3,10 +3,8 @@ ID: yuweiic1
 LANG: C++
 TASK: beads
 */
-// Test 2: RUNTIME 1.715>1 (4176 KB)
 #include <iostream>
 #include <fstream>
-#include <cstring>
 
 using namespace std;
 
@@ -18,18 +16,16 @@ int main()
     string str;
     fin >> numBeads;
     fin >> str;
-    char * cstr = new char [str.length()+1];
-    strcpy(cstr,str.c_str());
     do
     {
         int counts = 1; // count bead itself
         int intRight = i;
-        char current = cstr[i];
-        char rig = cstr[(i+1)%numBeads];
+        char current = str[i];
+        char rig = str[(i+1)%numBeads];
         bool right, changed = false;
         do{
             intRight += 1;
-            char rigadd = cstr[intRight%numBeads];
+            char rigadd = str[intRight%numBeads];
             if(rig == rigadd || rigadd == 'w'){
                 right = true;
                 counts += 1;

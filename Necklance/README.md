@@ -46,8 +46,5 @@ do only one while loop, check the color isChanged or not indicate the breaking p
 
 #### Attemp 4
 
-brute force solution?
-
-
-
+brute force solution? Yes!
 
