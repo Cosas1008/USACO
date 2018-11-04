@@ -1,53 +1,81 @@
-#include<stdio.h>
-#include<stdlib.h>
+/*
+ID: yuweiic1
+LANG: C
+TASK: milk2
+*/
+#include <stdio.h>
+#include <stdlib.h>
 
 #define MAXLINE 255
+char line[MAXLINE];
 
-int find_index(int a[], int num_elements, int value);
+struct milking{
+	int start;
+	int end;
+};
+
+typedef struct milking milk;
+
+/*
+// qsort
+// https://stackoverflow.com/questions/1787996/c-library-function-to-do-sort
+*/
+
+int comp(const void * element1, const void * element2)
+{
+	milk first = *((milk*)element1);
+	milk second = *((milk*)element2);
+	if(first.start > second.start){
+		return 1;
+	}else{
+		return -1;
+	}
+}
 
 int main(int argc, char const *argv[])
 {
 	FILE* fin, *fout;
 	fin = fopen("milk2.in", "r");
-	fout = fopen("milk2.out","w");
-	int left = 0, right = 0;
-	int min, max, num, index;
-	int milked = 0, noMilked = 0;
-	char line[MAXLINE];
+	int t_start, t_end, n, i;
 	fgets(line, MAXLINE, fin);
-	sscanf(line, "%d",&num);
-	int space = 2*(num-1);
-	int* interval = malloc(space* sizeof(int));
-	memset(interval, 0 , space*sizeof(int));	// neccessory for find_index function
-	while(fgets(line, MAXLINE, fin)!= NULL){
-		sscanf(line, "%d %d", &min, &max);
-		index = find_index(&interval, space, 0);
-		if(max < left){// check the max < left or min > right
-			// interval happened
-			// index = find_index(&interval, space, 0);
-			interval[index] = max;
-			interval[index+1] = left;
-		}else if(min > right){
-			// interval happened
-			interval[index] = right;
-			interval[index+1] = min;
-		}else{
-
-		}
-		// printf("%d %d \n", min, max);
+	sscanf(line, "%d",&n);
+	milk list[n];
+	for(i = 0; i < n; i++){
+		fgets(line, MAXLINE, fin);
+		sscanf(line, "%d %d",&t_start, &t_end);
+		list[i].start = t_start;
+		list[i].end = t_end;
 	}
-	free(interval);
 	fclose(fin);
+	// sorting list(struct milk) according to the start time
+	qsort(list,sizeof(list)/sizeof(*list), sizeof(milk), comp);
+
+	// calculate the time interval for milk/not-milk
+	int cs = 0, ce = 0, m_milk = 0, m_nmilk = 0, interval;
+	cs = list[0].start;
+	ce = list[0].end;
+	for(i =0; i < n; i++){
+		int s = list[i].start;
+		int e = list[i].end;
+		//printf("S: %4d; E: %4d\n", s, e);	// debug
+		if(s > ce){
+			interval = s - ce; // start time - current end_milk time
+			if(interval > m_nmilk){
+				m_nmilk = interval;
+			}
+			cs = s;
+			ce = e;
+		}else if(e > ce){
+			ce = e; // current end_milk time postoned to end time
+		}
+		interval = ce - cs;
+		if(interval > m_milk){
+			m_milk = interval;
+		}
+
+	}
+	fout = fopen("milk2.out","w");
+	fprintf(fout,"%d %d\n", m_milk, m_nmilk);
 	fclose(fout);
 	return 0;
-}
-// refered from https://phanderson.com/C/find_idx.html
-int find_index(int array[], int num_elements, int value)
-{
-   for(int i=0; i<num_elements; i++){
-	 if (array[i] == value){
-	    return(value);  /* it was found */
-	 }
-   }
-   return(0);  /* if it was not found, return to the beginning of array */
 }
