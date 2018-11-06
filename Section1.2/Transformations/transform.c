@@ -8,6 +8,11 @@ TASK: transform
 #include <stdio.h>
 #include <string.h>
 
+struct matrix{
+    int x;
+    int y;
+
+};
 int main(void)
 {
     FILE *fin, *fout;
@@ -15,13 +20,13 @@ int main(void)
     int n;
     char c;
     fscanf(fin,"%d",&n);
-    char *matrix = malloc(n*n*sizeof(char));
-    memset(matrix,0, sizeof(char)*n*n);
+    char *ma = malloc(n*n*sizeof(char));
+    memset(ma,0, sizeof(char)*n*n);
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
             c = fgetc(fin);
             if(c == '@' || c == '-'){
-                *(matrix + i*n + j) = c;
+                *(ma + i*n + j) = c;
             }
         }
     }
@@ -29,10 +34,11 @@ int main(void)
     fout = fopen("transform.out","w");
     for(int i = 0; i < n; i++){
         for(int j =0; j < n; j++){
-            printf("%c",*(matrix + i*n + j));
+            printf("%c",*(ma + i*n + j));
         }
         printf("\n");
     }
+    free(ma);
     fclose(fout);
     return 0;
 }
