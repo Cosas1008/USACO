@@ -8,11 +8,7 @@ TASK: transform
 #include <stdio.h>
 #include <string.h>
 
-struct matrix{
-    int x;
-    int y;
 
-};
 int main(void)
 {
     FILE *fin, *fout;
