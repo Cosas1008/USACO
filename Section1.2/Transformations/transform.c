@@ -10,15 +10,13 @@ TASK: transform
 int n;
 int Equal(char **a, char **b)
 {
-    char *tar1, *tar2;
     int i, j;
     for (i = 0; i < n; i++)
     {
-        tar1 = (char *)(a + i);
-        tar2 = (char *)(b + i);
         for (j = 0; j < n; j++)
         {
-            if (tar1[j] != tar2[j])
+            // printf("A: %c B: %c", a[i][j], b[i][j]);
+            if (a[i][j] != b[i][j])
                 return 0;
         }
     }
@@ -58,10 +56,10 @@ int main()
 
     // memory allocation
     // modefied sizeof(char) to sizeof(char*)
-    ori = (char **)malloc(n * sizeof(char*));
-    tag = (char **)malloc(n * sizeof(char*));
-    tmp1 = (char **)malloc(n * sizeof(char*));
-    tmp2 = (char **)malloc(n * sizeof(char*));
+    ori = (char **)malloc(n * sizeof(char *));
+    tag = (char **)malloc(n * sizeof(char *));
+    tmp1 = (char **)malloc(n * sizeof(char *));
+    tmp2 = (char **)malloc(n * sizeof(char *));
     for (i = 0; i < n; i++)
     {
         ori[i] = (char *)malloc(n * sizeof(char));
@@ -74,16 +72,18 @@ int main()
     for (i = 0; i < n; i++)
     {
         fscanf(fin, "%s", &ori[i][0]);
-        // printf("%c%c%c%c\n",ori[i][0], ori[i][1], ori[i][2], ori[i][3]); // n = 4
+        // printf("%c%c%c%c%c\n",ori[i][0], ori[i][1], ori[i][2], ori[i][3], ori[i][4]); // n = 5
     }
     for (i = 0; i < n; i++)
     {
         fscanf(fin, "%s", &tag[i][0]);
+        // printf("%c%c%c%c%c\n",tag[i][0], tag[i][1], tag[i][2], tag[i][3], tag[i][4]); // n = 5
     }
+    // Close input file
+    fclose(fin);
 
     //check identical
-    //90   cw opt:1
-    r90(tmp1, ori);
+    r90(tmp1, ori); //90   cw opt:1
     if (Equal(tmp1, tag))
         opt = 1;
     else
@@ -117,11 +117,11 @@ int main()
                                 opt = 5;
                             else
                             { //270  fcw opt:5
-                                r90(tmp2,tmp1);
-                                if(Equal(tmp2, tag))
+                                r90(tmp2, tmp1);
+                                if (Equal(tmp2, tag))
                                     opt = 5;
                                 else
-                                {  // invalid transform
+                                { // invalid transform
                                     opt = 7;
                                 }
                             }
@@ -131,10 +131,13 @@ int main()
             }
         }
     }
-    
-    //output file
+
+    // Output file
     fout = fopen("transform.out", "w");
     fprintf(fout, "%d\n", opt);
+    // Close output file
+    fclose(fout);
+
     // Free dynamic allocated memory
     for (i = 0; i < n; i++)
     {
@@ -148,8 +151,5 @@ int main()
     free(tag);
     free(tmp1);
     free(tmp2);
-    // Close file
-    fclose(fin);
-    fclose(fout);
     return 0;
 }
