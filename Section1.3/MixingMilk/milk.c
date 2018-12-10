@@ -45,23 +45,25 @@ int main()
     fclose(fin);
 
     // sort the list in ascend order
-    qsort(list, sizeof(list)/sizeof(*list), sizeof(farm), comp);
-    
+    qsort(list, sizeof(list) / sizeof(*list), sizeof(farm), comp);
+
     // Greedy technique take place
     int left = amount, cost = 0;
-    for(int n = 0; n < n_farmer; n = n + 1)
+    for (int n = 0; n < n_farmer; n = n + 1)
     {
         // printf("left: %d, list[i].unit = %d\n", left, list[n].unit);
-        if(left > list[n].unit){
+        if (left > list[n].unit)
+        {
             cost += list[n].unit * list[n].price;
             left -= list[n].unit;
         }
-        else{
+        else
+        {
             cost += left * list[n].price;
             break;
         }
     }
-    fprintf(fout,"%d\n", cost);
+    fprintf(fout, "%d\n", cost);
     fclose(fout);
     return 0;
 }
