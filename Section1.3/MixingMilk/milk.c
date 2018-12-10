@@ -32,11 +32,12 @@ int comp(const void *element1, const void *element2)
 int main()
 {
     FILE *fin, *fout;
-    fin = fopen("milk.in", "r");
     int amount, n_farmer;
     int i;
+    fin = fopen("milk.in", "r");
+    fout = fopen("milk.out", "w");
     fscanf(fin, "%d %d", &amount, &n_farmer);
-    farm list[amount];
+    farm list[n_farmer];
     for (i = 0; i < n_farmer; i++)
     {
         fscanf(fin, "%d %d", &list[i].price, &list[i].unit);
@@ -44,8 +45,8 @@ int main()
     fclose(fin);
 
     // sort the list in ascend order
-    qsort(list, n_farmer, sizeof(farm), comp);
-
+    qsort(list, sizeof(list)/sizeof(*list), sizeof(farm), comp);
+    
     // Greedy technique take place
     int left = amount, cost = 0;
     for(int n = 0; n < n_farmer; n = n + 1)
@@ -60,8 +61,7 @@ int main()
             break;
         }
     }
-    fout = fopen("milk.out", "w");
-    fprintf(fout,"%d", cost);
+    fprintf(fout,"%d\n", cost);
     fclose(fout);
     return 0;
 }
