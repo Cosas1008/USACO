@@ -4,6 +4,7 @@ LANG: C
 TASK: milk
 */
 #include <stdio.h>
+#include <stdlib.h>
 
 struct farmer
 {
@@ -13,13 +14,24 @@ struct farmer
 
 typedef struct farmer farm; // farm is struct array
 
-int milkSack()
+// refer https://stackoverflow.com/questions/1787996/c-library-function-to-do-sort
+int comp(const void *element1, const void *element2)
 {
+    farm first = *((farm *)element1);
+    farm second = *((farm *)element2);
+    if (first.price > second.price)
+    {
+        return 1;
+    }
+    else
+    {
+        return -1;
+    }
 }
 
 int main()
 {
-    FILE *fin, fout;
+    FILE *fin, *fout;
     fin = fopen("milk.in", "r");
     int amount, n_farmer;
     int i;
@@ -31,11 +43,25 @@ int main()
     }
     fclose(fin);
 
-    // Greedy algo take place?
-    // find the min price and buy all, then check the amount left, if left > 0 => seek the next
-    int current_price = 0, left = amount;
-    while(left > 0){
-        
+    // sort the list in ascend order
+    qsort(list, n_farmer, sizeof(farm), comp);
+
+    // Greedy technique take place
+    int left = amount, cost = 0;
+    for(int n = 0; n < n_farmer; n = n + 1)
+    {
+        // printf("left: %d, list[i].unit = %d\n", left, list[n].unit);
+        if(left > list[n].unit){
+            cost += list[n].unit * list[n].price;
+            left -= list[n].unit;
+        }
+        else{
+            cost += left * list[n].price;
+            break;
+        }
     }
+    fout = fopen("milk.out", "w");
+    fprintf(fout,"%d", cost);
+    fclose(fout);
     return 0;
 }
