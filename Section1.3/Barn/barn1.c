@@ -7,14 +7,14 @@ TASK: barn1
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int comp(const void *a, const void *b)
+int compare( const void* a, const void* b)
 {
-    int va = *(const int *)a;
-    int vb = *(const int *)b;
-    if (va > vb)
-        return 1;
-    else
-        return -1;
+     int int_a = * ( (int*) a );
+     int int_b = * ( (int*) b );
+
+     if ( int_a == int_b ) return 0;
+     else if ( int_a < int_b ) return -1;
+     else return 1;
 }
 int main(int argc, char const *argv[])
 {
@@ -24,15 +24,15 @@ int main(int argc, char const *argv[])
     fin = fopen("barn1.in", "r");
     fscanf(fin, "%d %d %d", &m, &s, &c);
     stall = malloc(c * (sizeof(int)));
-    memset(stall, 0, c * sizeof(int)); // int is 4-byte data for 64-bit system
+    memset(stall, 0, c * (sizeof(int))); // int is 4-byte data for 64-bit system
 
     for (int i = 0; i < c; i++)
     {
         fscanf(fin, "%d", &stall[i]);
     }
     int space;
-    interval = malloc((c - 1) * 4);
-    memset(interval, 0, (c - 1) * 4);
+    interval = malloc((c - 1) * (sizeof(int)));
+    memset(interval, 0, (c - 1) * (sizeof(int)));
     fout = fopen("bar1.out", "w");
     for (int i = 0; i < c - 1; i++)
     {
@@ -40,11 +40,15 @@ int main(int argc, char const *argv[])
         interval[i] = space;
         // fprintf(fout, "original interval : %d\n", interval[i]); // debug
     }
-    qsort(interval, sizeof(interval) / sizeof(int), sizeof(int *), comp);
-    for (int i = 0; i < c - 1; i++)
+    qsort(interval, (c - 1), sizeof(int), compare);
+    // note:: sizeof(interval) / sizeof(*interval) not working for (void *)
+    int answer = 0;
+    for (int i = 0; i < c -m; i++)
     {
-        fprintf(fout, "interval : %d\n", interval[i]); // debug
+        answer += interval[i];
     }
+    answer += m; // add the number of boards back
+    fprintf(fout,"%d\n", answer);
     fclose(fin);
     fclose(fout);
     free(stall);

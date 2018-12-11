@@ -6,9 +6,6 @@ TASK: namenum
 #include <iostream>
 #include <fstream>
 
-// having trouble chosing the suitable container for dict
-#include <set>
-// #include <map>
 using namespace std;
 
 string touchmapping(const string &);
