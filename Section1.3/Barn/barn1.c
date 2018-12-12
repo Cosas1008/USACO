@@ -30,15 +30,17 @@ int main(int argc, char const *argv[])
     {
         fscanf(fin, "%d", &stall[i]);
     }
+    // sort the stall ascend
+    qsort(stall, c, sizeof(int), compare);
     int space;
     interval = malloc((c - 1) * (sizeof(int)));
     memset(interval, 0, (c - 1) * (sizeof(int)));
-    fout = fopen("bar1.out", "w");
+    fout = fopen("barn1.out", "w");
     for (int i = 0; i < c - 1; i++)
     {
         space = stall[i + 1] - stall[i];
         interval[i] = space;
-        // fprintf(fout, "original interval : %d\n", interval[i]); // debug
+        fprintf(fout, "original interval : %d\n", interval[i]); // debug
     }
     qsort(interval, (c - 1), sizeof(int), compare);
     // note:: sizeof(interval) / sizeof(*interval) not working for (void *)
@@ -46,6 +48,7 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < c -m; i++)
     {
         answer += interval[i];
+        fprintf(fout, "ordered interval : %d\n", interval[i]); // debug
     }
     answer += m; // add the number of boards back
     fprintf(fout,"%d\n", answer);

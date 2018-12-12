@@ -12,9 +12,15 @@ int main(int argc, char const *argv[])
 {
     ifstream fin;
     ofstream fout;
-    
+    int n;
     fin.open("crypt1.in", ios::in);
-
+    fin >> n;
+    int array[n] = {0};
+    for(int i = 0; i < n; i++)
+        fin >> array[i];
+    for(int i = 0; i < n; i++)
+        cout << array[i];
+    cout << endl;
     fin.close();
     return 0;
 }
