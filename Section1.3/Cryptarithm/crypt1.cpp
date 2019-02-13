@@ -18,8 +18,12 @@ int main(int argc, char const *argv[])
     int array[n] = {0};
     for(int i = 0; i < n; i++)
         fin >> array[i];
-    for(int i = 0; i < n; i++)
-        cout << array[i];
+    int answer = 0;
+    int partial, first_digit, second_digit;
+    // brutal force
+    for(int m = 100; m <= 999; m++){
+        
+    }
     cout << endl;
     fin.close();
     return 0;

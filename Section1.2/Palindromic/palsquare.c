@@ -38,7 +38,7 @@ void intToBase(int number, int base)
 
 int checkPalindrom()
 {
-    int result;
+    // int result;
     size_t len = strlen(converted);
     if(len == 1) return 1;
     for(int i = 0; i < len/2; i++){
