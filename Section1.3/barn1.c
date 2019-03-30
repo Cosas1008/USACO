@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
         fprintf(fout, "%d\n", c); // the board is not enough for covering up all the stall
         // therefore, we have to cover min(c) stall
     }else{
-        for (int i = 0; i < c - 1; i++)
+        for (int i = 0; i < c - m; i++)
         {
             answer += interval[i];
             // fprintf(fout, "ordered interval : %d\n", interval[i]); // debug
