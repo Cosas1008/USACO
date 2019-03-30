@@ -1,5 +1,5 @@
-
-Y.W.Chen right reserved
+:fist_oncoming: :fist_oncoming: :taiwan:
+* Author: Y.W.Chen :smile: 
 
 practice USACO example
 
