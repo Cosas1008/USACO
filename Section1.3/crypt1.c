@@ -17,7 +17,7 @@ int main()
     fin = fopen("crypt1.in", "r");
     fout = fopen("crypt1.out", "w");
     fscanf(fin, "%d\n", &num);
-    int set[num], count;
+    int set[num], count = 0;
     for (int i = 0; i < num; i++)
     {
         fscanf(fin, "%d", &set[i]);
@@ -28,26 +28,24 @@ int main()
         {
             for (int k = 0; k < num; k++)
             {
-                for (int l = 0; l < 1; l++)
+                for (int l = 0; l < num; l++)
                 {
-                    for (int m = 0; m < 1; m++)
+                    for (int m = 0; m < num; m++)
                     {
                         int a = 100 * set[i] + 10 * set[j] + set[k];
                         int b = 10 * set[l] + set[m];
                         int c = set[m] * a;
                         int d = set[l] * a;
-                        int e = c + 10 * d;
-                        // Check partial and result
-                        if(c < 1000 && d < 1000 && e < 10000)
-                        {
+                        int e = a * b;
+                        // Check partial and result fit the pattern
+                        if (c < 1000 && d < 1000 && e >= 1000 && e < 10000)
+                        { // quick filt
                             if (inSet(c, set) && inSet(d, set) && inSet(e, set))
-                            {
+                            { // check the number inside the pool
                                 // printf("Set a: %2d b: %2d c: %3d d: %3d e: %3d\n", a, b, c, d, e);
                                 count += 1;
                             }
                         }
-                        
-                        break;
                     }
                 }
             }
@@ -70,7 +68,8 @@ int inSet(int checkee, int set[])
             if (digit == set[i])
                 isIn = 1;
         }
-        if(!isIn) return 0;
+        if (!isIn)
+            return 0;
         checkee /= 10;
     }
     return 1;
