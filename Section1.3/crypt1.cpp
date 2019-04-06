@@ -6,6 +6,7 @@ TASK: crypt1
 
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
 int main(int argc, char const *argv[])
@@ -19,11 +20,8 @@ int main(int argc, char const *argv[])
     for(int i = 0; i < n; i++)
         fin >> array[i];
     int answer = 0;
-    int partial, first_digit, second_digit;
     // brutal force
-    for(int m = 100; m <= 999; m++){
-        
-    }
+    
     cout << endl;
     fin.close();
     return 0;
