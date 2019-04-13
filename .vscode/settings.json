@@ -1,8 +1,0 @@
-{
-    "python.pythonPath": "C:/Python27/python2.exe",
-    "files.associations": {
-        "ostream": "cpp",
-        "iostream": "cpp",
-        "iosfwd": "cpp"
-    }
-}
