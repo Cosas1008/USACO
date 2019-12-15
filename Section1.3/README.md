@@ -115,5 +115,10 @@ Lines 2..1+N | Each line contains two space-separated integers describing the (x
 Line 1:	The number of distinct pairings of wormholes such that Bessie could conceivably get stuck in a cycle walking from some starting point in the +x direction.
 ####  Sample Output (file wormhole.out):
 2
+#### Thought:
+
+This is much alike a permuation problem with a little bit pruning
+
+refer to permuation.cpp
 
 -------------
